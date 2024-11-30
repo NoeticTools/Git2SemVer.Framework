@@ -1,0 +1,113 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Title>Git2SemVer versioning framework</Title>
+    <Description>Framework to generate Semantic Versioning from Git repository and conventional commits. Used by other Git2SemVer projects.</Description>
+    <PackageProjectUrl>https://github.com/NoeticTools/Git2SemVer</PackageProjectUrl>
+    <PackageIcon>Git2SemVer_icon_32x32.png</PackageIcon>
+    <ApplicationIcon>Git2SemVer_icon_64x64.ico</ApplicationIcon>
+    <PackageReadmeFile>NuGet_description.md</PackageReadmeFile>
+    <PackageTags>Versioning Semver Git GitFlow GitFlowVersion GitHubFlow</PackageTags>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <TargetsForTfmSpecificBuildOutput>
+      $(TargetsForTfmSpecificBuildOutput);CopyProjectReferencesToPackage
+    </TargetsForTfmSpecificBuildOutput>
+    <BuildOutputTargetFolder>tasks</BuildOutputTargetFolder>
+    <SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>
+    <GenerateDependencyFile>true</GenerateDependencyFile>
+    <UpdateVersionProperties>true</UpdateVersionProperties>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageOutputPath>./nupkg</PackageOutputPath>
+    <EnableNETAnalyzers>True</EnableNETAnalyzers>
+    <EnforceCodeStyleInBuild>False</EnforceCodeStyleInBuild>
+    <AnalysisLevel>preview-all</AnalysisLevel>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="Git2SemVer_icon_64x64.ico" Pack="False" />
+    <None Include="Git2SemVer_icon_32x32.png" Pack="True" PackagePath="\" />
+    <None Include="NuGet_description.md" Pack="True" PackagePath="\" />
+  </ItemGroup>
+
+  <Target Name="AddBuildDependencyFileToBuiltProjectOutputGroupOutput" BeforeTargets="BuiltProjectOutputGroup" Condition=" '$(GenerateDependencyFile)' == 'true'">
+    <ItemGroup>
+      <BuiltProjectOutputGroupOutput Include="$(ProjectDepsFilePath)" TargetPath="$(ProjectDepsFileName)" FinalOutputPath="$(ProjectDepsFilePath)" />
+    </ItemGroup>
+  </Target>
+
+  <Target Name="CopyProjectReferencesToPackage" DependsOnTargets="ResolveReferences">
+    <ItemGroup>
+      <BuildOutputInPackage Include="@(ReferenceCopyLocalPaths)" TargetPath="%(ReferenceCopyLocalPaths.DestinationSubPath)" />
+    </ItemGroup>
+  </Target>
+
+  <ItemGroup>
+    <PackageReference Include="JetBrains.Annotations" Version="2024.3.0" />
+    <PackageReference Include="JsonPeek" Version="1.2.0" />
+    <PackageReference Include="Microsoft.Bcl.HashCode" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Build.Utilities.Core" Version="17.11.4" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Scripting" Version="4.11.0" />
+    <PackageReference Include="Microsoft.Extensions.Primitives" Version="9.0.0" />
+    <PackageReference Include="NoeticTools.Git2SemVer.Core" Version="3.0.0-alpha.131" />
+    <PackageReference Include="NuGet.Versioning" Version="6.12.1" />
+    <PackageReference Include="TeamCity.ServiceMessages" Version="4.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+      <_Parameter1>NoeticTools.Git2SemVer.MSBuild.Tests</_Parameter1>
+    </AssemblyAttribute>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+      <_Parameter1>NoeticTools.Git2SemVer.IntegrationTests</_Parameter1>
+    </AssemblyAttribute>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+      <_Parameter1>DynamicProxyGenAssembly2</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Git2SemVer_icon_64x64.ico" />
+  </ItemGroup>
+
+  <!-- Ensure that the Git2SemVer version information JSON file is available.  -->
+  <Target Name="Git2SemVerEnsureVersionInfoBuilt" Condition="'$(MSBuildProjectName)' != '$(Git2SemVer_VersioningProjectName)'" AfterTargets="PrepareResources" BeforeTargets="CoreBuild;Build;Pack;GetAssemblyVersion">
+
+    <PropertyGroup>
+      <SharedPropsFileExists Condition="Exists($(Git2SemVer_SharedVersioningJsonFile))">true</SharedPropsFileExists>
+      <SharedPropsFileExists Condition="'$(SharedPropsFileExists)' == ''">false</SharedPropsFileExists>
+    </PropertyGroup>
+
+    <Message Text="Git2SemVer: Generating versioning information." Importance="high" Condition=" '$(SharedPropsFileExists)' == 'false' " />
+
+    <MSBuild Projects="$(Git2SemVer_VersioningProjectPath)" Condition=" '$(SharedPropsFileExists)' == 'false' " />
+
+  </Target>
+
+  <!-- Load generated versioning information -->
+  <Target Name="Git2SemVerLoadVersionInformation" Condition="'$(MSBuildProjectName)' != '$(Git2SemVer_VersioningProjectName)'" DependsOnTargets="Git2SemVerEnsureVersionInfoBuilt" AfterTargets="PrepareResources" BeforeTargets="CoreBuild;Build;Pack;GetAssemblyVersion">
+
+    <Message Text="Git2SemVer: Loading versioning information." Importance="normal" />
+
+    <!-- ReSharper disable once UnknownTask -->
+    <JsonPeek ContentPath="$(Git2SemVer_SharedVersioningJsonFile)" Query="$.Git2SemVerVersionInfo">
+      <Output TaskParameter="Result" ItemName="Git2SemVerVersionInfo" />
+    </JsonPeek>
+
+    <PropertyGroup>
+      <Version>@(Git2SemVerVersionInfo -> '%(Version)')</Version>
+      <VersionPrefix>@(Git2SemVerVersionInfo -> '%(VersionPrefix)')</VersionPrefix>
+      <VersionSuffix>@(Git2SemVerVersionInfo -> '%(VersionSuffix)')</VersionSuffix>
+      <PackageVersion>@(Git2SemVerVersionInfo -> '%(PackageVersion)')</PackageVersion>
+      <InformationalVersion>@(Git2SemVerVersionInfo -> '%(InformationalVersion)')</InformationalVersion>
+      <AssemblyVersion>@(Git2SemVerVersionInfo -> '%(AssemblyVersion)')</AssemblyVersion>
+      <FileVersion>@(Git2SemVerVersionInfo -> '%(FileVersion)')</FileVersion>
+    </PropertyGroup>
+
+  </Target>
+
+</Project>

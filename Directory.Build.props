@@ -10,14 +10,10 @@
 
   <Import Project="Directory.Versioning.Build.props" />
 
-  <PropertyGroup>
-    <Git2SemVer_TestSolutionsDirectory>$(MSBuildThisFileDirectory)TestSolutions/</Git2SemVer_TestSolutionsDirectory>
-  </PropertyGroup>
-
   <!-- NuGet package properties -->
   <PropertyGroup>
     <Authors>RobSmyth</Authors>
-    <RepositoryUrl>https://github.com/NoeticTools/Git2SemVer</RepositoryUrl>
+    <RepositoryUrl>https://github.com/NoeticTools/Git2SemVer.Framework</RepositoryUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Copyright>Copyright (c) RobSmyth $([System.DateTime]::Now.Year)</Copyright>
     <NoWarn>NU5100;NU1803;NU5128</NoWarn>

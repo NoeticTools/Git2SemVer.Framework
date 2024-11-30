@@ -3,7 +3,10 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.12.35514.174
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Git2SemVer.Versioning", "Git2SemVer.Framework\Git2SemVer.Versioning.csproj", "{84C3364D-7601-44BB-A05E-CEE016E8F457}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Git2SemVer.Framework", "Git2SemVer.Framework\Git2SemVer.Framework.csproj", "{84C3364D-7601-44BB-A05E-CEE016E8F457}"
+	ProjectSection(ProjectDependencies) = postProject
+		{23AA489E-2B12-47C4-A4B8-C8831C996FA5} = {23AA489E-2B12-47C4-A4B8-C8831C996FA5}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolutionVersioningProject", "SolutionVersioningProject\SolutionVersioningProject.csproj", "{23AA489E-2B12-47C4-A4B8-C8831C996FA5}"
 EndProject
