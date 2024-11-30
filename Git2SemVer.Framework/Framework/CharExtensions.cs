@@ -1,9 +1,9 @@
 ﻿using System.Runtime.CompilerServices;
 
 
-namespace NoeticTools.Git2SemVer.Versioning.Framework;
+namespace NoeticTools.Git2SemVer.Framework.Framework;
 
-internal static class CharExtensions
+public static class CharExtensions
 {
     /// <summary>
     ///     Is this character an ASCII digit '0' through '9'
