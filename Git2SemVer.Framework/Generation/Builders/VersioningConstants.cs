@@ -1,4 +1,4 @@
-﻿namespace NoeticTools.Git2SemVer.Versioning.Generation.Builders;
+﻿namespace NoeticTools.Git2SemVer.Framework.Generation.Builders;
 
 internal static class VersioningConstants
 {

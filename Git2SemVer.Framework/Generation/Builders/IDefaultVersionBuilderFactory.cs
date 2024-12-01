@@ -1,7 +1,7 @@
-﻿using NoeticTools.Git2SemVer.Versioning.Generation.GitHistoryWalking;
+﻿using NoeticTools.Git2SemVer.Framework.Generation.GitHistoryWalking;
 
 
-namespace NoeticTools.Git2SemVer.Versioning.Generation.Builders;
+namespace NoeticTools.Git2SemVer.Framework.Generation.Builders;
 
 internal interface IDefaultVersionBuilderFactory
 {

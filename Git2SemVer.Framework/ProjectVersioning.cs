@@ -1,20 +1,20 @@
 ﻿using NoeticTools.Git2SemVer.Core.Logging;
-using NoeticTools.Git2SemVer.Versioning.Framework.BuildHosting;
-using NoeticTools.Git2SemVer.Versioning.Generation;
-using NoeticTools.Git2SemVer.Versioning.Persistence;
+using NoeticTools.Git2SemVer.Framework.Framework.BuildHosting;
+using NoeticTools.Git2SemVer.Framework.Generation;
+using NoeticTools.Git2SemVer.Framework.Persistence;
 
 
 #pragma warning disable CA1859
 
-namespace NoeticTools.Git2SemVer.Versioning;
+namespace NoeticTools.Git2SemVer.Framework;
 
 public sealed class ProjectVersioning
 {
-    private readonly IVersionGeneratorInputs _inputs;
     private readonly IBuildHost _host;
+    private readonly IVersionGeneratorInputs _inputs;
+    private readonly ILogger _logger;
     private readonly IGeneratedOutputsJsonFile _outputsCacheJsonFile;
     private readonly IVersionGenerator _versionGenerator;
-    private readonly ILogger _logger;
 
     internal ProjectVersioning(
         IVersionGeneratorInputs inputs,

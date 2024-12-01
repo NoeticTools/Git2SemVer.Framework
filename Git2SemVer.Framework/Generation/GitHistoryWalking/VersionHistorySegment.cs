@@ -7,7 +7,7 @@ using Semver;
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
-namespace NoeticTools.Git2SemVer.Versioning.Generation.GitHistoryWalking;
+namespace NoeticTools.Git2SemVer.Framework.Generation.GitHistoryWalking;
 
 internal sealed class VersionHistorySegment
 {

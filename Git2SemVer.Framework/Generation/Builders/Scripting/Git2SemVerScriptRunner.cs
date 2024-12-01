@@ -1,19 +1,17 @@
 ﻿using System.Diagnostics;
-using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
-using NoeticTools.Git2SemVer.Core.Logging;
 using NoeticTools.Git2SemVer.Core.Tools.DotnetCli;
 using NoeticTools.Git2SemVer.Core.Tools.Git;
-using NoeticTools.Git2SemVer.Versioning.Framework;
-using NoeticTools.Git2SemVer.Versioning.Framework.BuildHosting;
-using NoeticTools.Git2SemVer.Versioning.Tools.CI;
+using NoeticTools.Git2SemVer.Framework.Framework;
+using NoeticTools.Git2SemVer.Framework.Framework.BuildHosting;
+using NoeticTools.Git2SemVer.Framework.Tools.CI;
 using NuGet.Versioning;
 using Semver;
 using ILogger = NoeticTools.Git2SemVer.Core.Logging.ILogger;
 using Task = System.Threading.Tasks.Task;
 
 
-namespace NoeticTools.Git2SemVer.Versioning.Generation.Builders.Scripting;
+namespace NoeticTools.Git2SemVer.Framework.Generation.Builders.Scripting;
 
 public sealed class Git2SemVerScriptRunner
 {

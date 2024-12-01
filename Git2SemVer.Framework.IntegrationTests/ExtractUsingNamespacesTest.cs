@@ -1,5 +1,5 @@
-using NoeticTools.Git2SemVer.Versioning.Framework;
-using NoeticTools.Git2SemVer.Versioning.Generation.Builders.Scripting;
+using NoeticTools.Git2SemVer.Framework.Framework;
+using NoeticTools.Git2SemVer.Framework.Generation.Builders.Scripting;
 
 
 #pragma warning disable NUnit2046

@@ -1,9 +1,9 @@
 ﻿using NoeticTools.Git2SemVer.Core.Exceptions;
 using NoeticTools.Git2SemVer.Core.Logging;
-using NoeticTools.Git2SemVer.Versioning.Framework;
+using NoeticTools.Git2SemVer.Framework.Framework;
 
 
-namespace NoeticTools.Git2SemVer.Versioning.Tools.CI;
+namespace NoeticTools.Git2SemVer.Framework.Tools.CI;
 
 internal abstract class BuildHostBase : ToolBase
 {

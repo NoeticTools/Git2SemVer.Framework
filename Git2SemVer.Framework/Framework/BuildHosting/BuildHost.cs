@@ -1,9 +1,7 @@
-﻿
-
-using NoeticTools.Git2SemVer.Core.Logging;
+﻿using NoeticTools.Git2SemVer.Core.Logging;
 
 
-namespace NoeticTools.Git2SemVer.Versioning.Framework.BuildHosting;
+namespace NoeticTools.Git2SemVer.Framework.Framework.BuildHosting;
 
 internal class BuildHost : IBuildHost
 {

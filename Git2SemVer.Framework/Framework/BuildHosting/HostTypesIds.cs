@@ -1,4 +1,4 @@
-﻿namespace NoeticTools.Git2SemVer.Versioning.Framework.BuildHosting;
+﻿namespace NoeticTools.Git2SemVer.Framework.Framework.BuildHosting;
 
 /// <summary>
 ///     Supported host types.

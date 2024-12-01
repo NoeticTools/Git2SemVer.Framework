@@ -4,7 +4,7 @@ using Semver;
 
 #pragma warning disable SYSLIB1045
 
-namespace NoeticTools.Git2SemVer.Versioning.Framework.Semver;
+namespace NoeticTools.Git2SemVer.Framework.Framework.Semver;
 
 /// <summary>
 ///     Helper string extensions for working with Semantic Versioning strings.

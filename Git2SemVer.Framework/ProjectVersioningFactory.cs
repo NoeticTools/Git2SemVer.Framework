@@ -1,14 +1,14 @@
 ﻿using NoeticTools.Git2SemVer.Core.Logging;
 using NoeticTools.Git2SemVer.Core.Tools.Git;
-using NoeticTools.Git2SemVer.Versioning.Framework.Config;
-using NoeticTools.Git2SemVer.Versioning.Generation;
-using NoeticTools.Git2SemVer.Versioning.Generation.Builders;
-using NoeticTools.Git2SemVer.Versioning.Generation.Builders.Scripting;
-using NoeticTools.Git2SemVer.Versioning.Persistence;
-using NoeticTools.Git2SemVer.Versioning.Tools.CI;
+using NoeticTools.Git2SemVer.Framework.Framework.Config;
+using NoeticTools.Git2SemVer.Framework.Generation;
+using NoeticTools.Git2SemVer.Framework.Generation.Builders;
+using NoeticTools.Git2SemVer.Framework.Generation.Builders.Scripting;
+using NoeticTools.Git2SemVer.Framework.Persistence;
+using NoeticTools.Git2SemVer.Framework.Tools.CI;
 
 
-namespace NoeticTools.Git2SemVer.Versioning;
+namespace NoeticTools.Git2SemVer.Framework;
 
 public sealed class ProjectVersioningFactory
 {

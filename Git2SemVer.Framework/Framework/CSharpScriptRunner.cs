@@ -17,7 +17,7 @@ using Task = System.Threading.Tasks.Task;
 
 // ReSharper disable MethodHasAsyncOverload
 
-namespace NoeticTools.Git2SemVer.Versioning.Framework;
+namespace NoeticTools.Git2SemVer.Framework.Framework;
 
 public sealed class CSharpScriptRunner
 {

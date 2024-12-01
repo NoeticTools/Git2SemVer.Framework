@@ -1,4 +1,4 @@
-﻿namespace NoeticTools.Git2SemVer.Versioning.Framework.Config;
+﻿namespace NoeticTools.Git2SemVer.Framework.Framework.Config;
 
 // ReSharper disable UnusedAutoPropertyAccessor.Global
 internal sealed class Git2SemVerBuildLogEntry

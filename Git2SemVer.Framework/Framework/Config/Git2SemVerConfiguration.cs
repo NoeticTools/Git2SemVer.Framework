@@ -3,10 +3,10 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
 using System.Text.Unicode;
-using NoeticTools.Git2SemVer.Versioning.Tools.CI;
+using NoeticTools.Git2SemVer.Framework.Tools.CI;
 
 
-namespace NoeticTools.Git2SemVer.Versioning.Framework.Config;
+namespace NoeticTools.Git2SemVer.Framework.Framework.Config;
 
 /// <summary>
 ///     User's local Git2SemVer configuration.

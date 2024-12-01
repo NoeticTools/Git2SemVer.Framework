@@ -2,7 +2,7 @@
 using Semver;
 
 
-namespace NoeticTools.Git2SemVer.Versioning.Generation.GitHistoryWalking;
+namespace NoeticTools.Git2SemVer.Framework.Generation.GitHistoryWalking;
 
 #pragma warning disable CS1591
 public interface IVersionHistoryPath

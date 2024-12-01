@@ -1,4 +1,4 @@
-﻿using NoeticTools.Git2SemVer.Versioning.Generation;
+﻿using NoeticTools.Git2SemVer.Framework.Generation;
 
 
 //#pragma warning disable NUnit2045

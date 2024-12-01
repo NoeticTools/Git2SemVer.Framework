@@ -1,14 +1,12 @@
 ﻿using Moq;
 using NoeticTools.Git2SemVer.Core.Logging;
 using NoeticTools.Git2SemVer.Core.Tools.Git;
-using NoeticTools.Git2SemVer.Core.Tools.Git.Parsers;
+using NoeticTools.Git2SemVer.Framework.Framework.BuildHosting;
+using NoeticTools.Git2SemVer.Framework.Framework.Semver;
+using NoeticTools.Git2SemVer.Framework.Generation;
+using NoeticTools.Git2SemVer.Framework.Generation.Builders;
+using NoeticTools.Git2SemVer.Framework.Generation.GitHistoryWalking;
 using NoeticTools.Git2SemVer.Testing.Core;
-using NoeticTools.Git2SemVer.Versioning;
-using NoeticTools.Git2SemVer.Versioning.Framework.BuildHosting;
-using NoeticTools.Git2SemVer.Versioning.Framework.Semver;
-using NoeticTools.Git2SemVer.Versioning.Generation;
-using NoeticTools.Git2SemVer.Versioning.Generation.Builders;
-using NoeticTools.Git2SemVer.Versioning.Generation.GitHistoryWalking;
 using Semver;
 
 

@@ -3,10 +3,10 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Text.Unicode;
 using NoeticTools.Git2SemVer.Core.Git2SemVer;
-using NoeticTools.Git2SemVer.Versioning.Generation;
+using NoeticTools.Git2SemVer.Framework.Generation;
 
 
-namespace NoeticTools.Git2SemVer.Versioning.Persistence;
+namespace NoeticTools.Git2SemVer.Framework.Persistence;
 
 public sealed class GeneratedVersionsJsonFile : IGeneratedOutputsJsonFile
 {

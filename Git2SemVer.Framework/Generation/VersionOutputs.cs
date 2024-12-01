@@ -1,9 +1,9 @@
 ﻿using System.Text.Json.Serialization;
-using NoeticTools.Git2SemVer.Versioning.Framework.Semver;
+using NoeticTools.Git2SemVer.Framework.Framework.Semver;
 using Semver;
 
 
-namespace NoeticTools.Git2SemVer.Versioning.Generation;
+namespace NoeticTools.Git2SemVer.Framework.Generation;
 
 internal sealed class VersionOutputs : IVersionOutputs
 {

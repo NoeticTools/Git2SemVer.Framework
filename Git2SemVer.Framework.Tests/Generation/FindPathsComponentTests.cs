@@ -1,7 +1,7 @@
 ﻿using NoeticTools.Git2SemVer.Core.Logging;
 using NoeticTools.Git2SemVer.Core.Tools.Git;
+using NoeticTools.Git2SemVer.Framework.Generation;
 using NoeticTools.Git2SemVer.Testing.Core;
-using NoeticTools.Git2SemVer.Versioning.Generation;
 
 
 // ReSharper disable TailRecursiveCall

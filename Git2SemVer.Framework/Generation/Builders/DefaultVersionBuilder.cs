@@ -1,14 +1,13 @@
 ﻿using System.Text.RegularExpressions;
 using NoeticTools.Git2SemVer.Core.Logging;
 using NoeticTools.Git2SemVer.Core.Tools.Git;
-using NoeticTools.Git2SemVer.Versioning.Framework.BuildHosting;
-using NoeticTools.Git2SemVer.Versioning.Framework.Semver;
-using NoeticTools.Git2SemVer.Versioning.Generation;
-using NoeticTools.Git2SemVer.Versioning.Generation.GitHistoryWalking;
+using NoeticTools.Git2SemVer.Framework.Framework.BuildHosting;
+using NoeticTools.Git2SemVer.Framework.Framework.Semver;
+using NoeticTools.Git2SemVer.Framework.Generation.GitHistoryWalking;
 using Semver;
 
 
-namespace NoeticTools.Git2SemVer.Versioning.Generation.Builders;
+namespace NoeticTools.Git2SemVer.Framework.Generation.Builders;
 
 /// <summary>
 ///     Git2SemVer's default outputs builder. This builder sets all MSBuild output properties.

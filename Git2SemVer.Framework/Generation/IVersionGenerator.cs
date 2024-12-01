@@ -1,4 +1,4 @@
-﻿namespace NoeticTools.Git2SemVer.Versioning.Generation;
+﻿namespace NoeticTools.Git2SemVer.Framework.Generation;
 
 internal interface IVersionGenerator
 {

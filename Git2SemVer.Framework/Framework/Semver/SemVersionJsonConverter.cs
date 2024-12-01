@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 using Semver;
 
 
-namespace NoeticTools.Git2SemVer.Versioning.Framework.Semver;
+namespace NoeticTools.Git2SemVer.Framework.Framework.Semver;
 
 public class SemVersionJsonConverter : JsonConverter<SemVersion?>
 {

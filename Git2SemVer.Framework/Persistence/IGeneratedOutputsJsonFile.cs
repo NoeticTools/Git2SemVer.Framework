@@ -1,7 +1,7 @@
-﻿using NoeticTools.Git2SemVer.Versioning.Generation;
+﻿using NoeticTools.Git2SemVer.Framework.Generation;
 
 
-namespace NoeticTools.Git2SemVer.Versioning.Persistence;
+namespace NoeticTools.Git2SemVer.Framework.Persistence;
 
 internal interface IGeneratedOutputsJsonFile
 {

@@ -1,10 +1,10 @@
 ﻿using System.Text.Json.Serialization;
 using NoeticTools.Git2SemVer.Core.Tools.Git;
-using NoeticTools.Git2SemVer.Versioning.Framework.BuildHosting;
+using NoeticTools.Git2SemVer.Framework.Framework.BuildHosting;
 using Semver;
 
 
-namespace NoeticTools.Git2SemVer.Versioning;
+namespace NoeticTools.Git2SemVer.Framework;
 
 [JsonDerivedType(typeof(GitOutputs), "GitOutputs")]
 public interface IGitOutputs

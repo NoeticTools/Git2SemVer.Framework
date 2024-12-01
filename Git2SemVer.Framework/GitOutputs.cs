@@ -1,11 +1,11 @@
 ﻿using System.Text.Json.Serialization;
 using NoeticTools.Git2SemVer.Core.Tools.Git;
-using NoeticTools.Git2SemVer.Versioning.Framework.BuildHosting;
-using NoeticTools.Git2SemVer.Versioning.Generation.GitHistoryWalking;
+using NoeticTools.Git2SemVer.Framework.Framework.BuildHosting;
+using NoeticTools.Git2SemVer.Framework.Generation.GitHistoryWalking;
 using Semver;
 
 
-namespace NoeticTools.Git2SemVer.Versioning;
+namespace NoeticTools.Git2SemVer.Framework;
 
 /// <summary>
 ///     Git output properties for JSON serialisation.

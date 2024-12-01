@@ -1,10 +1,9 @@
 ﻿using NoeticTools.Git2SemVer.Core.Logging;
 using NoeticTools.Git2SemVer.Core.Tools.Git;
-using NoeticTools.Git2SemVer.Versioning.Framework.BuildHosting;
-using NoeticTools.Git2SemVer.Versioning.Generation;
+using NoeticTools.Git2SemVer.Framework.Framework.BuildHosting;
 
 
-namespace NoeticTools.Git2SemVer.Versioning.Generation.Builders.Scripting;
+namespace NoeticTools.Git2SemVer.Framework.Generation.Builders.Scripting;
 
 public sealed class VersioningContext : IVersioningContext
 {

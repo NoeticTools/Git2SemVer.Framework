@@ -1,12 +1,12 @@
 ﻿using System.Text.Json.Serialization;
-using NoeticTools.Git2SemVer.Versioning.Framework.BuildHosting;
-using NoeticTools.Git2SemVer.Versioning.Framework.Semver;
+using NoeticTools.Git2SemVer.Framework.Framework.BuildHosting;
+using NoeticTools.Git2SemVer.Framework.Framework.Semver;
 using Semver;
 
 
 // ReSharper disable UnusedMemberInSuper.Global
 
-namespace NoeticTools.Git2SemVer.Versioning.Generation;
+namespace NoeticTools.Git2SemVer.Framework.Generation;
 
 /// <summary>
 ///     Task outputs for C# script use and source for MSBuild output properties.

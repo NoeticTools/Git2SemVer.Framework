@@ -1,9 +1,8 @@
 ﻿using Moq;
+using NoeticTools.Git2SemVer.Framework.Framework.BuildHosting;
+using NoeticTools.Git2SemVer.Framework.Generation;
+using NoeticTools.Git2SemVer.Framework.Persistence;
 using NoeticTools.Git2SemVer.Testing.Core;
-using NoeticTools.Git2SemVer.Versioning;
-using NoeticTools.Git2SemVer.Versioning.Framework.BuildHosting;
-using NoeticTools.Git2SemVer.Versioning.Generation;
-using NoeticTools.Git2SemVer.Versioning.Persistence;
 
 
 namespace NoeticTools.Git2SemVer.Framework.Tests.Generation.ProjectVersioningTests;
