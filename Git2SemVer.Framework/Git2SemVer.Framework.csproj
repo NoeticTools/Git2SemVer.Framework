@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <IsPackable>true</IsPackable>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -14,11 +14,7 @@
     <PackageReadmeFile>NuGet_description.md</PackageReadmeFile>
     <PackageTags>Versioning Semver Git GitFlow GitFlowVersion GitHubFlow</PackageTags>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
-    <TargetsForTfmSpecificBuildOutput>
-      $(TargetsForTfmSpecificBuildOutput);CopyProjectReferencesToPackage
-    </TargetsForTfmSpecificBuildOutput>
-    <BuildOutputTargetFolder>tasks</BuildOutputTargetFolder>
-    <SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>
+    <SuppressDependenciesWhenPacking>false</SuppressDependenciesWhenPacking>
     <GenerateDependencyFile>true</GenerateDependencyFile>
     <UpdateVersionProperties>true</UpdateVersionProperties>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -42,18 +38,6 @@
       <_Parameter1>DynamicProxyGenAssembly2</_Parameter1>
     </AssemblyAttribute>
   </ItemGroup>
-
-  <Target Name="AddBuildDependencyFileToBuiltProjectOutputGroupOutput" BeforeTargets="BuiltProjectOutputGroup" Condition=" '$(GenerateDependencyFile)' == 'true'">
-    <ItemGroup>
-      <BuiltProjectOutputGroupOutput Include="$(ProjectDepsFilePath)" TargetPath="$(ProjectDepsFileName)" FinalOutputPath="$(ProjectDepsFilePath)" />
-    </ItemGroup>
-  </Target>
-
-  <Target Name="CopyProjectReferencesToPackage" DependsOnTargets="ResolveReferences">
-    <ItemGroup>
-      <BuildOutputInPackage Include="@(ReferenceCopyLocalPaths)" TargetPath="%(ReferenceCopyLocalPaths.DestinationSubPath)" />
-    </ItemGroup>
-  </Target>
 
   <ItemGroup>
     <PackageReference Include="JetBrains.Annotations" Version="2024.3.0" />
