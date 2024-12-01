@@ -316,6 +316,37 @@ internal sealed class ScenariosFromBuildLogsTestSource : IEnumerable
                              *               .|0042|0043|build: REDACTED|||
                              """);
 
+    /// <summary>
+    ///     Breaking change on head commit not bumping major version.
+    /// </summary>
+    public LoggedScenario Scenario13 { get; } =
+        new("1.0.0", "0001", """
+                            *               .|0001|0002|feat!: REDACTED|| (HEAD -> REDACTED_BRANCH, origin/Preparing-release)|
+                            *               .|0002|0003|build: REDACTED|||
+                            *               .|0003|0004|REDACTED|||
+                            *               .|0004|0005|refactor: REDACTED|| (origin/REDACTED_BRANCH, main)|
+                            *               .|0005|0006 0007|REDACTED|||
+                            |\  
+                            | *             .|0007|0008|REDACTED|||
+                            * |             .|0006|0008|test: REDACTED|||
+                            |/  
+                            *               .|0008|0009 0010|REDACTED|||
+                            |\  
+                            | *             .|0010|0011|REDACTED|||
+                            | *             .|0011|0012|REDACTED|||
+                            * |             .|0009|0012|fix: REDACTED|||
+                            |/  
+                            *               .|0012|0013|build: REDACTED|||
+                            *               .|0013|0014|build: REDACTED|||
+                            *               .|0014|0015|REDACTED|||
+                            *               .|0015|0016|REDACTED|||
+                            *               .|0016|0017|build: REDACTED|||
+                            *               .|0017|0018|build: REDACTED|||
+                            *               .|0018|0019|build: REDACTED|||
+                            *               .|0019|0020|build: REDACTED|||
+                            *               .|0020||REDACTED|||
+                            """);
+
     public IEnumerator GetEnumerator()
     {
         yield return new object[] { "Scenario 01", Scenario01 };
@@ -330,5 +361,6 @@ internal sealed class ScenariosFromBuildLogsTestSource : IEnumerable
         yield return new object[] { "Scenario 10", Scenario10 };
         yield return new object[] { "Scenario 11", Scenario11 };
         yield return new object[] { "Scenario 12", Scenario12 };
+        yield return new object[] { "Scenario 13", Scenario13 };
     }
 }

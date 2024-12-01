@@ -91,13 +91,13 @@ internal sealed class VersionHistoryPathsBuilder
     {
         var stringBuilder = new StringBuilder();
 
-        stringBuilder.Append($"Found {paths.Count} paths.");
+        stringBuilder.AppendLine($"Found {paths.Count} paths.");
         using (_logger.EnterLogScope())
         {
-            stringBuilder.Append("Path #   Segments (count)            Bumps    Ver from/to");
+            stringBuilder.AppendLine("Path #   Segments (count)            Bumps    Ver from/to");
             foreach (var path in paths)
             {
-                stringBuilder.Append(path);
+                stringBuilder.AppendLine(path.ToString());
             }
         }
 

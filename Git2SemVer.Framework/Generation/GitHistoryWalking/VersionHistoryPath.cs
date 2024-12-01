@@ -75,42 +75,18 @@ internal sealed class VersionHistoryPath : IVersionHistoryPath
             return HeadCommit.ReleasedVersion!;
         }
 
-        var version = _segments.First().TaggedReleasedVersion;
-        if (version == null)
-        {
-            version = new SemVersion(0, 1, 0);
-        }
-        else
-        {
-            if (_bumps.BreakingChange)
-            {
-                return new SemVersion(version.Major + 1, 0, 0);
-            }
+        var startingVersion = LastReleasedVersion ?? new SemVersion(0, 1, 0);
 
-            if (_bumps.FunctionalityChange)
-            {
-                return new SemVersion(version.Major, version.Minor + 1, 0);
-            }
-
-            return new SemVersion(version.Major, version.Minor, version.Patch + 1);
+        if (_bumps.BreakingChange)
+        {
+            return new SemVersion(startingVersion.Major + 1, 0, 0);
         }
 
-        return version;
+        if (_bumps.FunctionalityChange)
+        {
+            return new SemVersion(startingVersion.Major, startingVersion.Minor + 1, 0);
+        }
+
+        return LastReleasedVersion == null ? startingVersion : new SemVersion(startingVersion.Major, startingVersion.Minor, startingVersion.Patch + 1);
     }
-
-    //public IReadOnlyList<VersionHistoryPath> With(IReadOnlyList<VersionHistorySegment> toSegments)
-    //{
-    //    if (!toSegments.Any())
-    //    {
-    //        return new List<VersionHistoryPath> { this };
-    //    }
-
-    //    var paths = new List<VersionHistoryPath>();
-    //    foreach (var segment in toSegments)
-    //    {
-    //        paths.AddRange(With(segment).With(segment.ChildCommits)); // >>> this is obsolete ... build lookup in paths builder
-    //    }
-
-    //    return paths;
-    //}
 }
