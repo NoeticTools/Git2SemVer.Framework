@@ -61,12 +61,12 @@ internal sealed class VersionHistorySegment
         if (_commits.Count > 0 && OldestCommit.Parents.All(x => x.Sha != youngerCommit.CommitId.Sha))
         {
             throw new
-                InvalidOperationException($"Cannot append {youngerCommit.CommitId.Sha} as it is not connected to segment's first (oldest) commit.");
+                InvalidOperationException($"Cannot append {youngerCommit.CommitId.ShortSha} as it is not connected to segment's first (oldest) commit.");
         }
 
         _bumps = null;
         _commits.Add(youngerCommit);
-        _logger.LogTrace("Commit {0} added to segment {1}.", youngerCommit.CommitId.Sha, Id);
+        _logger.LogTrace("Commit {0} added to segment {1}.", youngerCommit.CommitId.ShortSha, Id);
     }
 
     /// <summary>
@@ -137,7 +137,7 @@ internal sealed class VersionHistorySegment
 
             var olderSegment = segmentFactory.Create(olderSegmentCommits);
             _logger.LogTrace("Split out new segment {2} from segment {0} at commit {1}.",
-                             Id, commit.CommitId.Sha,
+                             Id, commit.CommitId.ShortSha,
                              olderSegment.Id);
 
             return olderSegment;

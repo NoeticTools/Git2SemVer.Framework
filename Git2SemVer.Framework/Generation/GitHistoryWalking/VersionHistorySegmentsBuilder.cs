@@ -91,7 +91,7 @@ internal sealed class VersionHistorySegmentsBuilder
         {
             using (_logger.EnterLogScope())
             {
-                _logger.LogTrace("Commit {0} has release tag '{1}'.", commit.CommitId.Sha, commit.ReleasedVersion.ToString());
+                _logger.LogTrace("Commit {0} has release tag '{1}'.", commit.CommitId.ShortSha, commit.ReleasedVersion.ToString());
             }
 
             return SegmentWalkResult.FoundStart;
@@ -150,13 +150,13 @@ internal sealed class VersionHistorySegmentsBuilder
         var continuingBranchCommit = mergeCommit.Parents[1];
         using (_logger.EnterLogScope())
         {
-            _logger.LogDebug($"Commit {mergeCommit.CommitId.ShortSha} is a merge commit.");
+            _logger.LogTrace($"Commit {mergeCommit.CommitId.ShortSha} is a merge commit.");
         }
 
         _logger.LogTrace("Continuing branch:");
         NextCommitBeforeMerge(continuingBranchCommit, mergeCommit);
 
-        _logger.LogDebug($"Commit {mergeCommit.CommitId.ShortSha} is a merge commit from branch commit {mergedBranchCommit.ShortSha}:");
+        _logger.LogTrace($"Commit {mergeCommit.CommitId.ShortSha} is a merge commit from branch commit {mergedBranchCommit.ShortSha}:");
         using (_logger.EnterLogScope())
         {
             NextCommitBeforeMerge(mergedBranchCommit, mergeCommit);
