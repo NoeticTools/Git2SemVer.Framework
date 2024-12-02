@@ -19,14 +19,6 @@ internal class VersionHistorySegmentsBuilderTests
 
         var segments = target.BuildTo(context.GitTool.Object.Head);
 
-        using (context.Logger.EnterLogScope())
-        {
-            foreach (var segment in segments)
-            {
-                context.Logger.LogInfo(segment.ToString());
-            }
-        }
-
         Assert.That(segments, Is.Not.Null);
     }
 

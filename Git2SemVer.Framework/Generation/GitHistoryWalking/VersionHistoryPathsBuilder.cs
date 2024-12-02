@@ -107,7 +107,7 @@ internal sealed class VersionHistoryPathsBuilder
         }
 
         stringBuilder.AppendLine();
-        stringBuilder.AppendLine($"  Path {paths.BestPath.Id} will be used for versioning. Base version: {paths.BestPath.Version}.");
+        stringBuilder.AppendLine($"  Path {paths.BestPath.Id} will be used for versioning. Gives version: {paths.BestPath.Version}.");
 
         _logger.LogDebug("");
         _logger.LogDebug(stringBuilder.ToString());
