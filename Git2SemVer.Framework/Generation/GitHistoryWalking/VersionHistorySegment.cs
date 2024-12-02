@@ -74,12 +74,12 @@ internal sealed class VersionHistorySegment
     /// </summary>
     public VersionHistorySegment? BranchesFrom(VersionHistorySegment branchSegment, Commit commit, IVersionHistorySegmentFactory segmentFactory)
     {
-        _logger.LogDebug("Commit {0} in segment {1} branches to segment {2}:", commit.CommitId.Sha, Id, branchSegment.Id);
+        _logger.LogDebug("Commit {0} in segment {1} branches to segment {2}:", commit.CommitId.ShortSha, Id, branchSegment.Id);
         using (_logger.EnterLogScope())
         {
             if (commit.CommitId.Equals(YoungestCommit.CommitId))
             {
-                _logger.LogTrace("Commit {0} is last (youngest) commit in segment {1}. Link segments.", commit.CommitId.Sha, Id);
+                _logger.LogTrace("Commit {0} is last (youngest) commit in segment {1}. Link segments.", commit.CommitId.ShortSha, Id);
                 return null;
             }
 
@@ -97,7 +97,7 @@ internal sealed class VersionHistorySegment
             ParentCommits.Any() ? "" : "0.1.0";
 
         return
-            $"Segment {Id,-3} {YoungestCommit.CommitId.Sha} -> {OldestCommit.CommitId.Sha}  {commitsCount,5}   {ApiChangeFlags}    {release}";
+            $"Segment {Id,-3} {YoungestCommit.CommitId.ShortSha,7} -> {OldestCommit.CommitId.ShortSha,-7}  {commitsCount,5}     {ApiChangeFlags}    {release}";
     }
 
     private ApiChanges GetApiChanges()

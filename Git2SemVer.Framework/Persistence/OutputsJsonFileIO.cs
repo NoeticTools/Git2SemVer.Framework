@@ -23,7 +23,8 @@ public class OutputsJsonFileIO : IOutputsJsonIO
         return LoadFromFile(directory);
     }
 
-    private static IVersionOutputs LoadFromFile(string directory)
+    // ReSharper disable once MemberCanBePrivate.Global
+    public static IVersionOutputs LoadFromFile(string directory)
     {
         var propertiesFilePath = GetFilePath(directory);
         if (!File.Exists(propertiesFilePath))
@@ -35,6 +36,7 @@ public class OutputsJsonFileIO : IOutputsJsonIO
         return FromJson(json);
     }
 
+    // ReSharper disable once MemberCanBePrivate.Global
     public static VersionOutputs FromJson(string json)
     {
         return JsonSerializer.Deserialize<VersioningInfo>(json)!.Git2SemVerVersionInfo!;
