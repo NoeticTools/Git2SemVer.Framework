@@ -52,16 +52,4 @@ internal sealed class VersionGenerator(
             generatedOutputsJsonFile.Write(inputs.SolutionSharedDirectory, outputs);
         }
     }
-
-    //private void LogFoundPaths(HistoryPaths paths)
-    //{
-    //    if (logger.Level )
-    //    var startingCommits = paths.Paths.Select(x => x.FirstCommit.CommitId).ToArray();
-    //    var loggingParser = new LoggingGitLogCommitParser(gitTool);
-    //    gitTool.GetCommits(x => x.ReachableFrom(paths.HeadCommit.CommitId)
-    //                             .NotReachableFrom(startingCommits, inclusive: true)
-    //                             .With(loggingParser));
-
-    //    logger.LogInfo(loggingParser.GetLog());
-    //}
 }

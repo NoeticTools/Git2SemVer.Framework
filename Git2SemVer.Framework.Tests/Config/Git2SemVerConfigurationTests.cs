@@ -14,9 +14,7 @@ internal class Git2SemVerConfigurationTests
         var json = """
                    {
                      "Version": "1.0.0",
-                     "BuildNumber": 1639,
-                     "BuildLogSizeLimit": 0,
-                     "BuildLog": []
+                     "BuildNumber": 1639
                    }
                    """;
 
@@ -26,7 +24,6 @@ internal class Git2SemVerConfigurationTests
         Assert.That(result.Rev, Is.EqualTo(1));
         Assert.That(result.BuildNumber, Is.EqualTo(1639));
         Assert.That(result.BuildLogSizeLimit, Is.EqualTo(0));
-        Assert.That(result.BuildLog, Is.Empty);
     }
 
     [Test]
@@ -35,9 +32,7 @@ internal class Git2SemVerConfigurationTests
         var json = """
                    {
                      "Rev": 1,
-                     "BuildNumber": 1639,
-                     "BuildLogSizeLimit": 0,
-                     "BuildLog": []
+                     "BuildNumber": 1639
                    }
                    """;
 
@@ -47,6 +42,5 @@ internal class Git2SemVerConfigurationTests
         Assert.That(result.Rev, Is.EqualTo(1));
         Assert.That(result.BuildNumber, Is.EqualTo(1639));
         Assert.That(result.BuildLogSizeLimit, Is.EqualTo(0));
-        Assert.That(result.BuildLog, Is.Empty);
     }
 }

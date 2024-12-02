@@ -3,7 +3,7 @@
 
 namespace NoeticTools.Git2SemVer.Framework.Persistence;
 
-internal interface IGeneratedOutputsJsonFile
+public interface IGeneratedOutputsJsonFile
 {
     IVersionOutputs Load(string directory);
     void Write(string directory, IVersionOutputs outputs);

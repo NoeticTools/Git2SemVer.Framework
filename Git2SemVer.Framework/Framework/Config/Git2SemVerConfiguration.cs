@@ -25,9 +25,6 @@ internal sealed class Git2SemVerConfiguration : IConfiguration
     [JsonIgnore]
     private int _onLoadHash;
 
-    [JsonPropertyOrder(100)]
-    public List<Git2SemVerBuildLogEntry> BuildLog { get; set; } = [];
-
     /// <summary>
     ///     The local build log size.
     ///     If zero, the local build log is cleared and disabled.
@@ -59,22 +56,6 @@ internal sealed class Git2SemVerConfiguration : IConfiguration
     /// </summary>
     [JsonPropertyOrder(1)]
     public int Rev { get; set; } = 1;
-
-    public Git2SemVerBuildLogEntry AddLogEntry(string buildNumber, bool hasLocalChanges, string branch, string lastCommitId, string path)
-    {
-        if (BuildLog.Count >= BuildLogSizeLimit)
-        {
-            BuildLog.RemoveRange(BuildLogSizeLimit, BuildLog.Count - BuildLogSizeLimit);
-        }
-
-        var entry = new Git2SemVerBuildLogEntry(buildNumber, hasLocalChanges, branch, lastCommitId, path);
-        if (BuildLogSizeLimit > 0)
-        {
-            BuildLog.Add(entry);
-        }
-
-        return entry;
-    }
 
     /// <summary>
     ///     Load the configuration. May return cached configuration.
@@ -147,7 +128,7 @@ internal sealed class Git2SemVerConfiguration : IConfiguration
 
     private int GetCurrentHashCode()
     {
-        return HashCode.Combine(BuildLog, BuildLogSizeLimit, BuildNumber, Rev);
+        return HashCode.Combine(BuildLogSizeLimit, BuildNumber, Rev);
     }
 
     private static string GetFilePath()

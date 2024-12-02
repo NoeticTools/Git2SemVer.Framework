@@ -100,6 +100,9 @@ public interface IVersionGeneratorInputs //: IMSBuildTask
     /// </remarks>
     string HostType { get; }
 
+    /// <summary>
+    ///     The intermediate output directory (usually 'obj') that the build log and generated versions file are written to.
+    /// </summary>
     string IntermediateOutputDirectory { get; }
 
     /// <summary>

@@ -12,10 +12,12 @@ namespace NoeticTools.Git2SemVer.Framework;
 
 public sealed class ProjectVersioningFactory
 {
+    private readonly IGeneratedOutputsJsonFile _outputsJsonFile;
     private readonly ILogger _logger;
 
-    public ProjectVersioningFactory(ILogger logger)
+    public ProjectVersioningFactory(IGeneratedOutputsJsonFile outputsJsonFile, IConfiguration config, ILogger logger)
     {
+        _outputsJsonFile = outputsJsonFile;
         _logger = logger;
     }
 
@@ -38,17 +40,16 @@ public sealed class ProjectVersioningFactory
 
         var defaultBuilderFactory = new DefaultVersionBuilderFactory(_logger);
         var scriptBuilder = new ScriptVersionBuilder(_logger);
-        var generatedOutputsJsonFile = new GeneratedVersionsJsonFile();
         var versionGenerator = new VersionGenerator(inputs,
                                                     host,
-                                                    generatedOutputsJsonFile,
+                                                    _outputsJsonFile,
                                                     gitTool,
                                                     gitPathsFinder,
                                                     defaultBuilderFactory,
                                                     scriptBuilder,
                                                     _logger);
         var projectVersioning = new ProjectVersioning(inputs, host,
-                                                      generatedOutputsJsonFile,
+                                                      _outputsJsonFile,
                                                       versionGenerator,
                                                       _logger);
         return projectVersioning;

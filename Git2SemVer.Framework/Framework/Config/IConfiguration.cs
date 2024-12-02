@@ -3,16 +3,8 @@
 
 namespace NoeticTools.Git2SemVer.Framework.Framework.Config;
 
-internal interface IConfiguration
+public interface IConfiguration
 {
-    List<Git2SemVerBuildLogEntry> BuildLog { get; set; }
-
-    /// <summary>
-    ///     The local build log size.
-    ///     If zero, the local build log is cleared and disabled.
-    /// </summary>
-    int BuildLogSizeLimit { get; set; }
-
     /// <summary>
     ///     The next local build number. Default is 1.
     /// </summary>
@@ -30,8 +22,6 @@ internal interface IConfiguration
     ///     This configuration's schema revision count. To facilitate future migration.
     /// </summary>
     int Rev { get; set; }
-
-    Git2SemVerBuildLogEntry AddLogEntry(string buildNumber, bool hasLocalChanges, string branch, string lastCommitId, string path);
 
     /// <summary>
     ///     Save configuration to file.
