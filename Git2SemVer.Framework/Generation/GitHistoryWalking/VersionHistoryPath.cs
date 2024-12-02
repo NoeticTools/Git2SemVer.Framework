@@ -41,10 +41,10 @@ internal sealed class VersionHistoryPath : IVersionHistoryPath
 
     public override string ToString()
     {
-        var commitsCount = $"({CommitsSinceLastRelease})";
+        var commitsCount = $"{CommitsSinceLastRelease}";
         var segmentIdsString = string.Join("-", _segments.Select(x => x.Id));
         return
-            $"Path {Id,-3} {segmentIdsString,-20} {commitsCount,5}   {_bumps}   {LastReleasedVersion?.ToString() ?? " none"} -> {GetNextReleaseVersion()}";
+            $"Path {Id,-3} {segmentIdsString,-20}  {commitsCount,5}     {_bumps}    {LastReleasedVersion?.ToString() ?? " none",8} -> {GetNextReleaseVersion(),-8}";
     }
 
     public VersionHistoryPath With(VersionHistorySegment segment)

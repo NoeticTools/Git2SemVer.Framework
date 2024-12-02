@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Text;
 using NoeticTools.Git2SemVer.Core.Logging;
 using NoeticTools.Git2SemVer.Core.Tools.Git;
 
@@ -38,22 +39,30 @@ internal sealed class VersionHistorySegmentsBuilder
     {
         var stopwatch = Stopwatch.StartNew();
 
-        _logger.LogDebug("Finding git path segments to last releases.");
+        _logger.LogDebug("");
+        _logger.LogDebug("Walking git commits to find git path segments to last releases.\n");
         BuildSegmentsTo(commit);
 
         stopwatch.Stop();
-        _logger.LogDebug($"Found {_segments.Count} segments ({stopwatch.ElapsedMilliseconds}ms)");
 
-        using (_logger.EnterLogScope())
-        {
-            _logger.LogDebug("Segment #   Commits (count)      Bumps   Release");
-            foreach (var segment in _segments)
-            {
-                _logger.LogDebug(segment.Value.ToString());
-            }
-        }
+        LogFoundSegments(stopwatch);
 
         return _segments.Values.ToList();
+    }
+
+    private void LogFoundSegments(Stopwatch stopwatch)
+    {
+        var stringBuilder = new StringBuilder();
+        stringBuilder.AppendLine($"  Found {_segments.Count} segments ({stopwatch.ElapsedMilliseconds}ms):");
+
+        stringBuilder.AppendLine("    Segment #      From -> To       Commits  Bumps  Release");
+        foreach (var segment in _segments)
+        {
+            stringBuilder.AppendLine("    " + segment.Value);
+        }
+
+        _logger.LogDebug("");
+        _logger.LogDebug(stringBuilder.ToString());
     }
 
     private void BuildSegmentsTo(Commit commit)

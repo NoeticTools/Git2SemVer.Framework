@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Diagnostics;
+using System.Text;
 using NoeticTools.Git2SemVer.Core.Logging;
 using NoeticTools.Git2SemVer.Core.Tools.Git;
 
@@ -26,9 +27,15 @@ internal sealed class VersionHistoryPathsBuilder
 
     public HistoryPaths Build()
     {
+        var stopwatch = Stopwatch.StartNew();
         _logger.LogDebug("Building git paths to last releases from segments.");
-        var paths = FindPaths();
-        return new HistoryPaths(paths, _segments);
+        var foundPaths = FindPaths();
+        stopwatch.Stop();
+        var paths = new HistoryPaths(foundPaths, _segments);
+
+        LogFoundPaths(paths, stopwatch.Elapsed);
+
+        return paths;
     }
 
     private List<VersionHistoryPath> FindPaths()
@@ -44,8 +51,6 @@ internal sealed class VersionHistoryPathsBuilder
         {
             path.Id = nextPathId++;
         }
-
-        LogFoundPaths(paths);
 
         return paths;
     }
@@ -87,20 +92,24 @@ internal sealed class VersionHistoryPathsBuilder
         return childSegmentsLookup;
     }
 
-    private void LogFoundPaths(List<VersionHistoryPath> paths)
+    private void LogFoundPaths(HistoryPaths paths, TimeSpan timeTaken)
     {
         var stringBuilder = new StringBuilder();
 
-        stringBuilder.AppendLine($"Found {paths.Count} paths.");
+        stringBuilder.AppendLine($"  Found {paths.Paths.Count} paths ({timeTaken.Milliseconds}ms):");
         using (_logger.EnterLogScope())
         {
-            stringBuilder.AppendLine("Path #   Segments (count)            Bumps    Ver from/to");
-            foreach (var path in paths)
+            stringBuilder.AppendLine("    Path #   Segments             Commits   Bumps       From -> To");
+            foreach (var path in paths.Paths)
             {
-                stringBuilder.AppendLine(path.ToString());
+                stringBuilder.AppendLine("    " + path.ToString());
             }
         }
 
+        stringBuilder.AppendLine();
+        stringBuilder.AppendLine($"  Path {paths.BestPath.Id} will be used for versioning. Base version: {paths.BestPath.Version}.");
+
+        _logger.LogDebug("");
         _logger.LogDebug(stringBuilder.ToString());
     }
 }

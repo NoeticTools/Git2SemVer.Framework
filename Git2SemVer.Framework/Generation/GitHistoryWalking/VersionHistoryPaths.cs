@@ -23,20 +23,5 @@ internal sealed class HistoryPaths : IHistoryPaths
 
     public ImmutableSortedSet<IVersionHistoryPath> Paths { get; }
 
-    public string GetReport()
-    {
-        return $"""
-                Git history paths to last releases:
-                
-                  {_segments.Count} Segments:
-                {string.Join("\n", _segments.Select(x => $"    {x}"))}
-                
-                  {Paths.Count} Paths:
-                {string.Join("\n", Paths.Select(x => $"    {x}"))}
-                
-                  Walked {NumberOfCommits} commits
-                """;
-    }
-
     private int NumberOfCommits => _segments.Sum(x => x.Commits.Count);
 }

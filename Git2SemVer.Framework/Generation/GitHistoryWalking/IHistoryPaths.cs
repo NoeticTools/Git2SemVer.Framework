@@ -11,6 +11,4 @@ public interface IHistoryPaths
     Commit HeadCommit { get; }
 
     ImmutableSortedSet<IVersionHistoryPath> Paths { get; }
-
-    string GetReport();
 }
