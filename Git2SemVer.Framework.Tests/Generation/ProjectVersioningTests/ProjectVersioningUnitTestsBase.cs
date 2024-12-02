@@ -16,7 +16,7 @@ internal abstract class ProjectVersioningUnitTestsBase
     {
         Inputs = new Mock<IVersionGeneratorInputs>();
         Host = new Mock<IBuildHost>();
-        OutputsCacheJsonFile = new Mock<IGeneratedOutputsJsonFile>();
+        OutputsCacheJsonFile = new Mock<IOutputsJsonIO>();
         VersionGenerator = new Mock<IVersionGenerator>();
         _logger = new NUnitLogger();
 
@@ -46,7 +46,7 @@ internal abstract class ProjectVersioningUnitTestsBase
 
     protected Mock<IBuildHost> Host { get; private set; }
 
-    protected Mock<IGeneratedOutputsJsonFile> OutputsCacheJsonFile { get; private set; }
+    protected Mock<IOutputsJsonIO> OutputsCacheJsonFile { get; private set; }
 
     protected Mock<IVersionGenerator> VersionGenerator { get; private set; }
 

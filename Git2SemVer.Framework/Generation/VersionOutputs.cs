@@ -5,7 +5,7 @@ using Semver;
 
 namespace NoeticTools.Git2SemVer.Framework.Generation;
 
-internal sealed class VersionOutputs : IVersionOutputs
+public sealed class VersionOutputs : IVersionOutputs
 {
     [JsonConstructor]
     public VersionOutputs() : this(new GitOutputs())

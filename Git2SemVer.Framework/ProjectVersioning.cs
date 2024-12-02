@@ -13,13 +13,13 @@ public sealed class ProjectVersioning
     private readonly IBuildHost _host;
     private readonly IVersionGeneratorInputs _inputs;
     private readonly ILogger _logger;
-    private readonly IGeneratedOutputsJsonFile _outputsCacheJsonFile;
+    private readonly IOutputsJsonIO _outputsCacheJsonFile;
     private readonly IVersionGenerator _versionGenerator;
 
     internal ProjectVersioning(
         IVersionGeneratorInputs inputs,
         IBuildHost host,
-        IGeneratedOutputsJsonFile outputsCacheJsonFile,
+        IOutputsJsonIO outputsCacheJsonFile,
         IVersionGenerator versionGenerator,
         ILogger logger)
     {

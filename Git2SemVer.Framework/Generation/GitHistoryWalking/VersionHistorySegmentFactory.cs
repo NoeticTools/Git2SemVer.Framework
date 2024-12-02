@@ -1,10 +1,12 @@
 ﻿using NoeticTools.Git2SemVer.Core.Logging;
 using NoeticTools.Git2SemVer.Core.Tools.Git;
+using System.Diagnostics.CodeAnalysis;
 
 
 namespace NoeticTools.Git2SemVer.Framework.Generation.GitHistoryWalking;
 
 #pragma warning disable CS1591
+[ExcludeFromCodeCoverage]
 internal sealed class VersionHistorySegmentFactory(ILogger logger) : IVersionHistorySegmentFactory
 {
     private int _nextId = 1;

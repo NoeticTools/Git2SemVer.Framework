@@ -8,7 +8,8 @@ using NoeticTools.Git2SemVer.Framework.Generation;
 
 namespace NoeticTools.Git2SemVer.Framework.Persistence;
 
-internal sealed class GeneratedVersionsJsonFile : IGeneratedOutputsJsonFile
+// ReSharper disable once ClassNeverInstantiated.Global
+public class OutputsJsonFileIO : IOutputsJsonIO
 {
     private static readonly JsonSerializerOptions SerialiseOptions = new()
     {
@@ -19,6 +20,11 @@ internal sealed class GeneratedVersionsJsonFile : IGeneratedOutputsJsonFile
 
     public IVersionOutputs Load(string directory)
     {
+        return LoadFromFile(directory);
+    }
+
+    private static IVersionOutputs LoadFromFile(string directory)
+    {
         var propertiesFilePath = GetFilePath(directory);
         if (!File.Exists(propertiesFilePath))
         {
@@ -26,6 +32,11 @@ internal sealed class GeneratedVersionsJsonFile : IGeneratedOutputsJsonFile
         }
 
         var json = File.ReadAllText(propertiesFilePath);
+        return FromJson(json);
+    }
+
+    public static VersionOutputs FromJson(string json)
+    {
         return JsonSerializer.Deserialize<VersioningInfo>(json)!.Git2SemVerVersionInfo!;
     }
 
@@ -36,6 +47,11 @@ internal sealed class GeneratedVersionsJsonFile : IGeneratedOutputsJsonFile
     }
 
     public void Write(string directory, IVersionOutputs outputs)
+    {
+        WriteToFile(directory, outputs);
+    }
+
+    private static void WriteToFile(string directory, IVersionOutputs outputs)
     {
         if (!Directory.Exists(directory))
         {

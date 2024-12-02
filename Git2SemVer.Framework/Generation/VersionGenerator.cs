@@ -12,7 +12,7 @@ namespace NoeticTools.Git2SemVer.Framework.Generation;
 internal sealed class VersionGenerator(
     IVersionGeneratorInputs inputs,
     IBuildHost host,
-    IGeneratedOutputsJsonFile generatedOutputsJsonFile,
+    IOutputsJsonIO generatedOutputsJsonFile,
     IGitTool gitTool,
     IGitHistoryPathsFinder gitPathsFinder,
     IDefaultVersionBuilderFactory defaultVersionBuilderFactory,
