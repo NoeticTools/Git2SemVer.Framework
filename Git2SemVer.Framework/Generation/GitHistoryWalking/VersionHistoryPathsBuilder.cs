@@ -96,10 +96,10 @@ internal sealed class VersionHistoryPathsBuilder
     {
         var stringBuilder = new StringBuilder();
 
-        stringBuilder.AppendLine($"  Found {paths.Paths.Count} paths ({timeTaken.Milliseconds}ms):");
+        stringBuilder.AppendLine($"Found {paths.Paths.Count} paths ({timeTaken.Milliseconds}ms):");
         using (_logger.EnterLogScope())
         {
-            stringBuilder.AppendLine("    Path #   Segments             Commits   Bumps       From -> To");
+            stringBuilder.AppendLine("  Path #   Segments             Commits   Bumps       From -> To");
             foreach (var path in paths.Paths)
             {
                 stringBuilder.AppendLine("    " + path.ToString());
@@ -107,7 +107,7 @@ internal sealed class VersionHistoryPathsBuilder
         }
 
         stringBuilder.AppendLine();
-        stringBuilder.AppendLine($"  Path {paths.BestPath.Id} will be used for versioning. Gives version: {paths.BestPath.Version}.");
+        stringBuilder.AppendLine($"Path {paths.BestPath.Id} will be used for versioning. Gives version: {paths.BestPath.Version}.");
 
         _logger.LogDebug("");
         _logger.LogDebug(stringBuilder.ToString());

@@ -35,8 +35,6 @@ internal sealed class BuildHostFactory
             host.BuildIdFormat = inputsBuildIdFormat;
         }
 
-        _logger.LogDebug($"Detected '{host.Name}' host.");
-
         return host;
     }
 }

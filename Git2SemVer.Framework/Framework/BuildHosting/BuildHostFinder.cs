@@ -46,7 +46,7 @@ internal class BuildHostFinder
         }
 
         var host = _detectableBuildHosts.First(x => x.MatchesHostSignature());
-        _logger.LogDebug($"Detected host: '{host.Name}'");
+        _logger.LogDebug($"Detected '{host.Name}' host.");
         return host;
     }
 }

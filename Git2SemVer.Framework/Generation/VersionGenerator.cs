@@ -59,6 +59,8 @@ internal sealed class VersionGenerator(
                 logger.LogTrace(outputs.GetReport());
             }
 
+            logger.LogDebug("");
+
             scriptBuilder.Build(host, gitTool, inputs, outputs);
             if (logger.Level >= LoggingLevel.Debug)
             {

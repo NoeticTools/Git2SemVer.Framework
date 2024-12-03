@@ -31,14 +31,8 @@ internal class TeamCityHost : BuildHostBase, IDetectableBuildHost
 
     public bool MatchesHostSignature()
     {
-        var result = !string.IsNullOrWhiteSpace(_teamCityVersion) &&
-                     !string.IsNullOrWhiteSpace(BuildNumber);
-        if (result)
-        {
-            _logger.LogInfo("Detected build running on TeamCity.");
-        }
-
-        return result;
+        return !string.IsNullOrWhiteSpace(_teamCityVersion) &&
+               !string.IsNullOrWhiteSpace(BuildNumber);
     }
 
     public override void ReportBuildStatistic(string key, int value)
