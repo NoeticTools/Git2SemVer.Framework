@@ -65,7 +65,8 @@ internal sealed class VersionGenerator(
             }
 
             stopwatch.Stop();
-            logger.LogDebug($"Version building completed ({stopwatch.Elapsed.TotalSeconds:F1} sec).");
+            logger.LogDebug("");
+            logger.LogDebug($"Version building completed ({stopwatch.Elapsed.TotalSeconds:F1} sec).\n");
         }
     }
 
