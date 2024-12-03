@@ -19,18 +19,12 @@ public sealed class ScriptVersionBuilder : IVersionBuilder
     {
         if (inputs == null)
         {
-            throw new ArgumentException("Build requires non-null inputs.", nameof(inputs));
-        }
-
-        if (inputs.RunScript is false)
-        {
-            _logger.LogDebug("User C# script is disabled. Not run.");
-            return;
+            throw new ArgumentException("Script version builder requires non-null inputs.", nameof(inputs));
         }
 
         if (inputs.RunScript == false)
         {
-            _logger.LogDebug("RunScript option is not false. Script not run.");
+            _logger.LogDebug("Skipped user C# script as option not enabled.");
             return;
         }
 
@@ -38,13 +32,13 @@ public sealed class ScriptVersionBuilder : IVersionBuilder
         {
             if (inputs.RunScript == null)
             {
-                _logger.LogWarning($"RunScript is null and script '{inputs.BuildScriptPath}' not found. Ignoring.");
+                _logger.LogDebug($"User C# script '{inputs.BuildScriptPath}' was not found. Ignoring.");
                 return;
             }
 
             if (inputs.RunScript == true)
             {
-                _logger.LogError($"RunScript is true and C# script '{inputs.BuildScriptPath}' not found.");
+                _logger.LogError($"C# script '{inputs.BuildScriptPath}' was not found.");
                 return;
             }
         }
@@ -54,10 +48,14 @@ public sealed class ScriptVersionBuilder : IVersionBuilder
             return;
         }
 
-        var context = new VersioningContext(inputs, outputs, host, gitTool, _logger);
-        var scriptRunner = new Git2SemVerScriptRunner(new CSharpScriptRunner(_logger), _logger);
+        _logger.LogDebug("Running user C# script version builder.\n");
+        using (_logger.EnterLogScope())
+        {
+            var context = new VersioningContext(inputs, outputs, host, gitTool, _logger);
+            var scriptRunner = new Git2SemVerScriptRunner(new CSharpScriptRunner(_logger), _logger);
 
-        // ReSharper disable once UnusedVariable
-        var task = scriptRunner.RunScript(context, inputs.BuildScriptPath);
+            // ReSharper disable once UnusedVariable
+            var task = scriptRunner.RunScript(context, inputs.BuildScriptPath);
+        }
     }
 }

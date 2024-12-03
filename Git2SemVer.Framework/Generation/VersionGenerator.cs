@@ -22,26 +22,52 @@ internal sealed class VersionGenerator(
 {
     public IVersionOutputs Run()
     {
-        logger.LogTrace("Generating new versioning.");
         var stopwatch = Stopwatch.StartNew();
 
         host.BumpBuildNumber();
-        var historyPaths = gitPathsFinder.FindPathsToHead();
-        var outputs = new VersionOutputs(new GitOutputs(gitTool, historyPaths));
 
+        logger.LogDebug("Git history walking.");
+        HistoryPaths historyPaths;
+        using (logger.EnterLogScope())
+        {
+            historyPaths = gitPathsFinder.FindPathsToHead();
+        }
+
+        var outputs = new VersionOutputs(new GitOutputs(gitTool, historyPaths));
         RunBuilders(outputs, historyPaths);
         SaveGeneratedVersions(outputs);
 
         stopwatch.Stop();
+
+        logger.LogInfo($"Informational version: {outputs.InformationalVersion}");
+        logger.LogInfo($"Git history walking completed ({stopwatch.Elapsed.TotalSeconds:F1} sec).");
         host.ReportBuildStatistic("Git2SemVerRunTime_sec", stopwatch.Elapsed.TotalSeconds);
-        logger.LogInfo($"Git2SemVer generated version: {outputs.InformationalVersion}  ({stopwatch.Elapsed.TotalSeconds:F1} sec))");
+
         return outputs;
     }
 
     private void RunBuilders(VersionOutputs outputs, HistoryPaths historyPaths)
     {
-        defaultVersionBuilderFactory.Create(historyPaths).Build(host, gitTool, inputs, outputs);
-        scriptBuilder.Build(host, gitTool, inputs, outputs);
+        logger.LogDebug("Running version builders.");
+        using (logger.EnterLogScope())
+        {
+            var stopwatch = Stopwatch.StartNew();
+
+            defaultVersionBuilderFactory.Create(historyPaths).Build(host, gitTool, inputs, outputs);
+            if (logger.Level >= LoggingLevel.Trace)
+            {
+                logger.LogTrace(outputs.GetReport());
+            }
+
+            scriptBuilder.Build(host, gitTool, inputs, outputs);
+            if (logger.Level >= LoggingLevel.Debug)
+            {
+                logger.LogDebug(outputs.GetReport());
+            }
+
+            stopwatch.Stop();
+            logger.LogInfo($"Version building completed ({stopwatch.Elapsed.TotalSeconds:F1} sec).");
+        }
     }
 
     private void SaveGeneratedVersions(VersionOutputs outputs)

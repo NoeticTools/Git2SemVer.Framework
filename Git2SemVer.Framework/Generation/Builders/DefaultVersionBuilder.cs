@@ -25,13 +25,13 @@ internal sealed class DefaultVersionBuilder : IVersionBuilder
 
     public void Build(IBuildHost host, IGitTool gitTool, IVersionGeneratorInputs inputs, IVersionOutputs outputs)
     {
-        _logger.LogDebug("Running default version builder.");
+        _logger.LogDebug("Running default version builder.\n");
         using (_logger.EnterLogScope())
         {
             var prereleaseLabel = GetPrereleaseLabel(inputs, outputs);
 
             var version = GetVersion(prereleaseLabel, host);
-            _logger.LogDebug("Version: {0}", version.ToString());
+            _logger.LogTrace("Version: {0}", version.ToString());
             var informationalVersion = GetInformationalVersion(version, host, outputs);
             _logger.LogDebug("Informational version: {0}", informationalVersion.ToString());
             outputs.SetAllVersionPropertiesFrom(informationalVersion,
@@ -40,15 +40,6 @@ internal sealed class DefaultVersionBuilder : IVersionBuilder
 
             outputs.BuildSystemVersion = GetBuildSystemLabel(host, prereleaseLabel, version);
             _logger.LogTrace($"BuildSystemVersion = {outputs.BuildSystemVersion}");
-
-            var gitOutputs = outputs.Git;
-            //var config = Git2SemVerConfiguration.Load();
-            //config.AddLogEntry(host.BuildNumber,
-            //                   gitOutputs.HasLocalChanges,
-            //                   gitOutputs.BranchName,
-            //                   gitOutputs.HeadCommit.CommitId.ShortSha,
-            //                   inputs.WorkingDirectory);
-            //config.Save();
         }
     }
 

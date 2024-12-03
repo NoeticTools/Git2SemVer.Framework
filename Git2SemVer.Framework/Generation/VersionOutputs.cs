@@ -1,4 +1,6 @@
 ﻿using System.Text.Json.Serialization;
+using Microsoft.Build.Utilities;
+using NoeticTools.Git2SemVer.Core.Logging;
 using NoeticTools.Git2SemVer.Framework.Framework.Semver;
 using Semver;
 
@@ -75,4 +77,19 @@ public sealed class VersionOutputs : IVersionOutputs
             : informationalVersion.PrereleaseIdentifiers[0];
         IsInInitialDevelopment = informationalVersion.Major == 0;
     }
+
+    public string GetReport()
+    {
+        return $"""
+
+                Outputs:
+                
+                   Assembly version:      {AssemblyVersion}
+                   File version:          {FileVersion}
+                   Package version:       {PackageVersion}
+                   Build system label:    {BuildSystemVersion}
+                   Informational version: {InformationalVersion}
+                """;
+    }
+
 }
