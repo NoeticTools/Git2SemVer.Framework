@@ -1,4 +1,5 @@
 ﻿using System.Text.RegularExpressions;
+using Microsoft.Build.Utilities;
 using NoeticTools.Git2SemVer.Core.Logging;
 using NoeticTools.Git2SemVer.Core.Tools.Git;
 using NoeticTools.Git2SemVer.Framework.Framework.BuildHosting;
@@ -25,30 +26,19 @@ internal sealed class DefaultVersionBuilder : IVersionBuilder
 
     public void Build(IBuildHost host, IGitTool gitTool, IVersionGeneratorInputs inputs, IVersionOutputs outputs)
     {
-        _logger.LogDebug("Running default version builder.");
+        _logger.LogDebug("");
+        _logger.LogDebug("Running default version builder.\n");
         using (_logger.EnterLogScope())
         {
             var prereleaseLabel = GetPrereleaseLabel(inputs, outputs);
-
+            
             var version = GetVersion(prereleaseLabel, host);
-            _logger.LogDebug("Version: {0}", version.ToString());
             var informationalVersion = GetInformationalVersion(version, host, outputs);
-            _logger.LogDebug("Informational version: {0}", informationalVersion.ToString());
             outputs.SetAllVersionPropertiesFrom(informationalVersion,
                                                 host.BuildNumber,
                                                 host.BuildContext);
 
             outputs.BuildSystemVersion = GetBuildSystemLabel(host, prereleaseLabel, version);
-            _logger.LogTrace($"BuildSystemVersion = {outputs.BuildSystemVersion}");
-
-            var gitOutputs = outputs.Git;
-            //var config = Git2SemVerConfiguration.Load();
-            //config.AddLogEntry(host.BuildNumber,
-            //                   gitOutputs.HasLocalChanges,
-            //                   gitOutputs.BranchName,
-            //                   gitOutputs.HeadCommit.CommitId.ShortSha,
-            //                   inputs.WorkingDirectory);
-            //config.Save();
         }
     }
 

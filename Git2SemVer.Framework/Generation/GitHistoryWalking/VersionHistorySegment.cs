@@ -74,7 +74,7 @@ internal sealed class VersionHistorySegment
     /// </summary>
     public VersionHistorySegment? BranchesFrom(VersionHistorySegment branchSegment, Commit commit, IVersionHistorySegmentFactory segmentFactory)
     {
-        _logger.LogDebug("Commit {0} in segment {1} branches to segment {2}:", commit.CommitId.ShortSha, Id, branchSegment.Id);
+        _logger.LogTrace("Commit {0} in segment {1} branches to segment {2}:", commit.CommitId.ShortSha, Id, branchSegment.Id);
         using (_logger.EnterLogScope())
         {
             if (commit.CommitId.Equals(YoungestCommit.CommitId))
