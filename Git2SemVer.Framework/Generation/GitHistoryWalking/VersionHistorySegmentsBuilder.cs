@@ -37,42 +37,46 @@ internal sealed class VersionHistorySegmentsBuilder
 
     public IReadOnlyList<VersionHistorySegment> BuildTo(Commit commit)
     {
-        var stopwatch = Stopwatch.StartNew();
-
         _logger.LogDebug("");
-        _logger.LogDebug("Walking git commits to find git path segments to last releases.\n");
-        BuildSegmentsTo(commit);
+        _logger.LogDebug("Build git path segments to last releases.\n");
 
-        stopwatch.Stop();
+        using (_logger.EnterLogScope())
+        {
+            var stopwatch = Stopwatch.StartNew();
+            BuildSegmentsTo(commit);
+            LogFoundSegments();
+            stopwatch.Stop();
 
-        LogFoundSegments(stopwatch);
+            _logger.LogTrace($"Git path segments build ({stopwatch.ElapsedMilliseconds}ms).");
+        }
 
         return _segments.Values.ToList();
     }
 
-    private void LogFoundSegments(Stopwatch stopwatch)
+    private void LogFoundSegments()
     {
-        var stringBuilder = new StringBuilder();
-        stringBuilder.AppendLine($"  Found {_segments.Count} segments ({stopwatch.ElapsedMilliseconds}ms):");
-
-        stringBuilder.AppendLine("    Segment #      From -> To       Commits  Bumps  Release");
-        foreach (var segment in _segments)
+        if (_logger.Level < LoggingLevel.Debug)
         {
-            stringBuilder.AppendLine("    " + segment.Value);
+            return;
         }
 
-        _logger.LogDebug("");
+        var stringBuilder = new StringBuilder();
+        stringBuilder.AppendLine($"Found {_segments.Count} segments:");
+
+        stringBuilder.AppendLine("  Segment #      From -> To       Commits  Bumps  Release");
+        foreach (var segment in _segments)
+        {
+            stringBuilder.AppendLine("  " + segment.Value);
+        }
+
         _logger.LogDebug(stringBuilder.ToString());
     }
 
     private void BuildSegmentsTo(Commit commit)
     {
-        using (_logger.EnterLogScope())
+        while (NextCommit(commit) == SegmentWalkResult.Continue)
         {
-            while (NextCommit(commit) == SegmentWalkResult.Continue)
-            {
-                commit = _gitTool.Get(commit.Parents.First());
-            }
+            commit = _gitTool.Get(commit.Parents.First());
         }
     }
 
@@ -123,8 +127,11 @@ internal sealed class VersionHistorySegmentsBuilder
         }
         else
         {
-            var newSegmentVisitor = new VersionHistorySegmentsBuilder(_segmentFactory.Create([]), this);
-            newSegmentVisitor.BuildSegmentsTo(parentCommit);
+            using (_logger.EnterLogScope())
+            {
+                var newSegmentVisitor = new VersionHistorySegmentsBuilder(_segmentFactory.Create([]), this);
+                newSegmentVisitor.BuildSegmentsTo(parentCommit);
+            }
         }
     }
 

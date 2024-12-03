@@ -52,7 +52,6 @@ public sealed class Git2SemVerScriptRunner
         await _innerScriptRunner.RunScript(globalContext, scriptPath, MetadataReferences, inMemoryTypes).ConfigureAwait(true);
 
         stopwatch.Stop();
-        _logger.LogInfo($"Script run completed. (in {stopwatch.Elapsed.TotalSeconds:F1} sec)");
-        //_host.ReportBuildStatistic("Git2SemVer_Script_Seconds", stopwatch.Elapsed.TotalSeconds);
+        _logger.LogDebug($"Script run completed ({stopwatch.Elapsed.TotalSeconds:F1} sec)");
     }
 }
