@@ -26,13 +26,7 @@ internal sealed class VersionGenerator(
 
         host.BumpBuildNumber();
 
-        logger.LogDebug("");
-        logger.LogDebug("Git history walking.\n");
-        HistoryPaths historyPaths;
-        using (logger.EnterLogScope())
-        {
-            historyPaths = gitPathsFinder.FindPathsToHead();
-        }
+        var historyPaths = gitPathsFinder.FindPathsToHead();
 
         var outputs = new VersionOutputs(new GitOutputs(gitTool, historyPaths));
         RunBuilders(outputs, historyPaths);
@@ -40,8 +34,11 @@ internal sealed class VersionGenerator(
 
         stopwatch.Stop();
 
+        logger.LogTrace("");
         logger.LogInfo($"Informational version: {outputs.InformationalVersion}");
-        logger.LogDebug($"Git history walking completed ({stopwatch.Elapsed.TotalSeconds:F1} sec).");
+
+        logger.LogDebug($"Version generation completed. Took {stopwatch.Elapsed.TotalSeconds:F1} seconds.");
+
         host.ReportBuildStatistic("Git2SemVerRunTime_sec", stopwatch.Elapsed.TotalSeconds);
 
         return outputs;
