@@ -48,7 +48,6 @@ public sealed class ScriptVersionBuilder : IVersionBuilder
             return;
         }
 
-        _logger.LogDebug("");
         _logger.LogDebug("Running user C# script version builder.\n");
         using (_logger.EnterLogScope())
         {

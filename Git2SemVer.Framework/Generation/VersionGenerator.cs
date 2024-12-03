@@ -26,7 +26,8 @@ internal sealed class VersionGenerator(
 
         host.BumpBuildNumber();
 
-        logger.LogDebug("Git history walking.");
+        logger.LogDebug("");
+        logger.LogDebug("Git history walking.\n");
         HistoryPaths historyPaths;
         using (logger.EnterLogScope())
         {
@@ -58,8 +59,6 @@ internal sealed class VersionGenerator(
             {
                 logger.LogTrace(outputs.GetReport());
             }
-
-            logger.LogDebug("");
 
             scriptBuilder.Build(host, gitTool, inputs, outputs);
             if (logger.Level >= LoggingLevel.Debug)
