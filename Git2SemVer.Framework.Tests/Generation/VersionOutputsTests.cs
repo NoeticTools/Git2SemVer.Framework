@@ -38,37 +38,6 @@ internal class VersionOutputsTests
                                     "BuildNumber": "777",
                                     "BuildSystemVersion": "5.6.7-TEST",
                                     "FileVersion": null,
-                                    "Git": {
-                                      "$type": "GitOutputs",
-                                      "BranchName": "",
-                                      "CommitsSinceLastRelease": 0,
-                                      "HasLocalChanges": false,
-                                      "HeadCommit": {
-                                        "$type": "Commit",
-                                        "CommitId": {
-                                          "Sha": "00000000",
-                                          "ShortSha": "0000000"
-                                        },
-                                        "ReleasedVersion": null,
-                                        "Summary": "null commit",
-                                        "MessageBody": "",
-                                        "Refs": "",
-                                        "Parents": [],
-                                        "Metadata": {
-                                          "ApiChangeFlags": {
-                                            "BreakingChange": false,
-                                            "Fix": false,
-                                            "FunctionalityChange": false
-                                          },
-                                          "Body": "",
-                                          "ChangeDescription": "",
-                                          "ChangeType": 1,
-                                          "FooterKeyValues": []
-                                        }
-                                      },
-                                      "LastReleaseCommit": null,
-                                      "LastReleaseVersion": null
-                                    },
                                     "InformationalVersion": null,
                                     "IsInInitialDevelopment": false,
                                     "Output1": "",
