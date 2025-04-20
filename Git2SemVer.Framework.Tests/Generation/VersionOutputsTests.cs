@@ -56,13 +56,15 @@ internal class VersionOutputsTests
                                         "Parents": [],
                                         "Metadata": {
                                           "ApiChangeFlags": {
+                                            "None": true,
                                             "BreakingChange": false,
                                             "Fix": false,
                                             "FunctionalityChange": false
                                           },
                                           "Body": "",
+                                          "ChangeNoun": "",
+                                          "ChangeScope": "",
                                           "ChangeDescription": "",
-                                          "ChangeType": 1,
                                           "FooterKeyValues": []
                                         }
                                       },
