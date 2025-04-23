@@ -26,7 +26,7 @@ internal sealed class VersionGenerator(
 
         host.BumpBuildNumber();
 
-        var historyPaths = gitPathsFinder.FindPathsToHead();
+        var historyPaths = gitPathsFinder.GetPathsToHeadFromPriorRelease();
 
         var outputs = new VersionOutputs(new GitOutputs(gitTool, historyPaths));
         RunBuilders(outputs, historyPaths);

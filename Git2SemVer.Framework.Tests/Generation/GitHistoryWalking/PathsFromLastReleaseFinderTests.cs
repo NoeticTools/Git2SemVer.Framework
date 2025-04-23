@@ -7,16 +7,16 @@ namespace NoeticTools.Git2SemVer.Framework.Tests.Generation.GitHistoryWalking;
 
 [TestFixture]
 [Parallelizable(ParallelScope.All)]
-internal class PathsFromLastReleasesFinderTests
+internal class PathsFromLastReleaseFinderTests
 {
     [TestCaseSource(typeof(ScenariosFromBuildLogsTestSource))]
     public void BasicScenariosTest(string name, LoggedScenario scenario)
     {
         using var context = new GitHistoryWalkingTestsContext();
         context.SetupGitRepository(scenario);
-        var target = new PathsFromLastReleasesFinder(context.GitTool.Object, context.Logger);
+        var target = new PathsFromLastReleaseFinder(context.GitTool.Object, context.Logger);
 
-        var paths = target.FindPathsToHead();
+        var paths = target.GetPathsToHeadFromPriorRelease();
 
         var bestPath = paths.BestPath;
         Assert.That(bestPath.Version.ToString(), Is.EqualTo(scenario.ExpectedVersion));

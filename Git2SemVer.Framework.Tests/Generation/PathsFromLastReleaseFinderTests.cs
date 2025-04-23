@@ -11,7 +11,7 @@ using NoeticTools.Git2SemVer.Testing.Core;
 namespace NoeticTools.Git2SemVer.Framework.Tests.Generation;
 
 [TestFixture]
-internal class PathsFromLastReleasesFinderTests
+internal class PathsFromLastReleaseFinderTests
 {
     private Dictionary<string, Commit> _commitsLookup;
     private Mock<IGitTool> _gitTool;
@@ -45,10 +45,10 @@ internal class PathsFromLastReleasesFinderTests
     {
         _logger.LogInfo(scenario.Description + "\n");
         LoadRepository(scenario.Commits, scenario.HeadCommitId);
-        var target = new PathsFromLastReleasesFinder(_gitTool.Object,
+        var target = new PathsFromLastReleaseFinder(_gitTool.Object,
                                                      _logger);
 
-        var historyPaths = target.FindPathsToHead();
+        var historyPaths = target.GetPathsToHeadFromPriorRelease();
 
         Assert.That(historyPaths.Paths.Count, Is.EqualTo(scenario.ExpectedPathCount));
         Assert.That(historyPaths.BestPath.Version.ToString(), Is.EqualTo(scenario.ExpectedVersion));

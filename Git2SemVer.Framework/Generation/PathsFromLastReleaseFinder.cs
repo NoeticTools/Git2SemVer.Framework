@@ -10,17 +10,22 @@ using System.Diagnostics;
 
 namespace NoeticTools.Git2SemVer.Framework.Generation;
 
-internal sealed class PathsFromLastReleasesFinder(IGitTool gitTool, ILogger logger) : IGitHistoryPathsFinder
+internal sealed class PathsFromLastReleaseFinder(IGitTool gitTool, ILogger logger) : IGitHistoryPathsFinder
 {
-    public HistoryPaths FindPathsToHead()
+    public HistoryPaths GetPathsToHeadFromPriorRelease()
     {
         logger.LogDebug("");
-        logger.LogDebug("Git history walking.\n");
+        logger.LogDebug("Walk Git history from head to last release.\n");
+        logger.LogDebug($"Current branch: {gitTool.BranchName}");
+        return GetPathsToCommitFromPriorRelease(gitTool.Head);
+    }
+
+    private HistoryPaths GetPathsToCommitFromPriorRelease(Commit toCommit)
+    {
         using (logger.EnterLogScope())
         {
             var stopwatch = Stopwatch.StartNew();
-            logger.LogDebug($"Current branch: {gitTool.BranchName}");
-            var segments = new VersionHistorySegmentsBuilder(gitTool, logger).BuildTo(gitTool.Head);
+            var segments = new VersionHistorySegmentsBuilder(gitTool, logger).BuildTo(toCommit);
             var paths = new VersionHistoryPathsBuilder(segments, logger).Build();
             stopwatch.Stop();
             logger.LogDebug("");

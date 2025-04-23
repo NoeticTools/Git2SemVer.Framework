@@ -5,5 +5,8 @@ namespace NoeticTools.Git2SemVer.Framework.Generation;
 
 internal interface IGitHistoryPathsFinder
 {
-    HistoryPaths FindPathsToHead();
+    /// <summary>
+    /// Get the git commit paths from the highest prior release to the current head.
+    /// </summary>
+    HistoryPaths GetPathsToHeadFromPriorRelease();
 }

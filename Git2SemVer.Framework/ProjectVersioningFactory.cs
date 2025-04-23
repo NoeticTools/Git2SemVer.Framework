@@ -38,7 +38,7 @@ public sealed class ProjectVersioningFactory
         var commitsRepo = new CommitsCache();
         var gitProcessCli = new GitProcessCli(_logger) { WorkingDirectory = inputs.WorkingDirectory };
         var gitTool = new GitTool(commitsRepo, gitProcessCli, _logger);
-        var gitPathsFinder = new PathsFromLastReleasesFinder(gitTool, _logger);
+        var gitPathsFinder = new PathsFromLastReleaseFinder(gitTool, _logger);
 
         var defaultBuilderFactory = new DefaultVersionBuilderFactory(_logger);
         var scriptBuilder = new ScriptVersionBuilder(_logger);

@@ -2,6 +2,7 @@
 using System.Text;
 using NoeticTools.Git2SemVer.Core.Logging;
 using NoeticTools.Git2SemVer.Core.Tools.Git;
+using Semver;
 
 
 namespace NoeticTools.Git2SemVer.Framework.Generation.GitHistoryWalking;
@@ -14,6 +15,7 @@ internal sealed class VersionHistorySegmentsBuilder
     private readonly VersionHistorySegment _segment;
     private readonly VersionHistorySegmentFactory _segmentFactory;
     private readonly Dictionary<int, VersionHistorySegment> _segments = [];
+    private SemVersion _ignoredReleaseVersion = new SemVersion(0);
 
     private VersionHistorySegmentsBuilder(VersionHistorySegment segment, VersionHistorySegmentsBuilder parent)
     {
@@ -35,14 +37,24 @@ internal sealed class VersionHistorySegmentsBuilder
         _segments.Add(_segment.Id, _segment);
     }
 
-    public IReadOnlyList<VersionHistorySegment> BuildTo(Commit commit)
+    /// <summary>
+    /// Get git history path segments from prior release tags to the given commit.
+    /// </summary>
+    public IReadOnlyList<VersionHistorySegment> BuildTo(Commit commit, bool forcePriorRelease = false)
     {
         _logger.LogDebug("");
-        _logger.LogDebug("Build git path segments to last releases.\n");
+        _logger.LogDebug("Build git path segments from prior releases.\n");
 
         using (_logger.EnterLogScope())
         {
             var stopwatch = Stopwatch.StartNew();
+
+            _ignoredReleaseVersion = forcePriorRelease && commit.ReleasedVersion != null ? commit.ReleasedVersion : new SemVersion(0);
+            if (_ignoredReleaseVersion != null)
+            {
+                _logger.LogTrace("Ignoring release {0}.", _ignoredReleaseVersion);
+            }
+
             BuildSegmentsTo(commit);
             LogFoundSegments();
             stopwatch.Stop();
@@ -91,11 +103,11 @@ internal sealed class VersionHistorySegmentsBuilder
         _segment.Append(commit);
         _commitsCache.Add(commit.CommitId, _segment);
 
-        if (commit.ReleasedVersion != null)
+        if (commit.ReleasedVersion != null && !commit.ReleasedVersion.Equals(_ignoredReleaseVersion))
         {
             using (_logger.EnterLogScope())
             {
-                _logger.LogTrace("Commit {0} has release tag '{1}'.", commit.CommitId.ShortSha, commit.ReleasedVersion.ToString());
+                _logger.LogTrace("Found a prior release: Commit {0}, release tag '{1}'.", commit.CommitId.ShortSha, commit.ReleasedVersion.ToString());
             }
 
             return SegmentWalkResult.FoundStart;
