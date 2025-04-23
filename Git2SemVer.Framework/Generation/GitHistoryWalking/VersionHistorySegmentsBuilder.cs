@@ -7,7 +7,7 @@ using Semver;
 
 namespace NoeticTools.Git2SemVer.Framework.Generation.GitHistoryWalking;
 
-internal sealed class VersionHistorySegmentsBuilder
+internal sealed class VersionHistorySegmentsBuilder : IVersionHistorySegmentsBuilder
 {
     private readonly Dictionary<CommitId, VersionHistorySegment> _commitsCache = new();
     private readonly IGitTool _gitTool;

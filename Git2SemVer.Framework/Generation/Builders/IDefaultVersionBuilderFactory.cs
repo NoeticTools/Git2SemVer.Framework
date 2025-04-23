@@ -5,5 +5,5 @@ namespace NoeticTools.Git2SemVer.Framework.Generation.Builders;
 
 internal interface IDefaultVersionBuilderFactory
 {
-    IVersionBuilder Create(HistoryPaths historyPaths);
+    IVersionBuilder Create(IHistoryPaths historyPaths);
 }

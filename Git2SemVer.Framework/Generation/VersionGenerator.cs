@@ -44,7 +44,7 @@ internal sealed class VersionGenerator(
         return outputs;
     }
 
-    private void RunBuilders(VersionOutputs outputs, HistoryPaths historyPaths)
+    private void RunBuilders(VersionOutputs outputs, IHistoryPaths historyPaths)
     {
         logger.LogDebug("");
         logger.LogDebug("Running version builders.");

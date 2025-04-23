@@ -12,7 +12,7 @@ namespace NoeticTools.Git2SemVer.Framework.Generation;
 
 internal sealed class PathsFromLastReleaseFinder(IGitTool gitTool, ILogger logger) : IGitHistoryPathsFinder
 {
-    public HistoryPaths GetPathsToHeadFromPriorRelease()
+    public IHistoryPaths GetPathsToHeadFromPriorRelease()
     {
         logger.LogDebug("");
         logger.LogDebug("Walk Git history from head to last release.\n");

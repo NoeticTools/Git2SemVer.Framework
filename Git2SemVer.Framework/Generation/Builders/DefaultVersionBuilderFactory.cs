@@ -13,7 +13,7 @@ internal sealed class DefaultVersionBuilderFactory : IDefaultVersionBuilderFacto
         _logger = logger;
     }
 
-    public IVersionBuilder Create(HistoryPaths historyPaths)
+    public IVersionBuilder Create(IHistoryPaths historyPaths)
     {
         return new DefaultVersionBuilder(historyPaths, _logger);
     }

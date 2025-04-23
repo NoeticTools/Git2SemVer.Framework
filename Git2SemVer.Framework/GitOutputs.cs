@@ -17,7 +17,7 @@ public sealed class GitOutputs : IGitOutputs
     {
     }
 
-    internal GitOutputs(IGitTool gitTool, HistoryPaths paths)
+    internal GitOutputs(IGitTool gitTool, IHistoryPaths paths)
     {
         LastReleaseVersion = paths.BestPath.LastReleasedVersion;
         LastReleaseCommit = paths.BestPath.LastReleasedVersion == null ? null : paths.BestPath.FirstCommit;
