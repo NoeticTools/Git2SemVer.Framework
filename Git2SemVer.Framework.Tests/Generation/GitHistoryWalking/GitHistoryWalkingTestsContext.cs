@@ -10,12 +10,12 @@ namespace NoeticTools.Git2SemVer.Framework.Tests.Generation.GitHistoryWalking;
 
 internal class GitHistoryWalkingTestsContext : IDisposable
 {
-    private readonly GitLogCommitParser _logParser;
+    private readonly GitResponseParser _logParser;
 
     public GitHistoryWalkingTestsContext()
     {
         Logger = new NUnitLogger(false) { Level = LoggingLevel.Trace };
-        _logParser = new GitLogCommitParser(new CommitsCache(), new ConventionalCommitsParser());
+        _logParser = new GitResponseParser(new CommitsCache(), new ConventionalCommitsParser(), Logger);
         GitTool = new Mock<IGitTool>();
         GitTool.Setup(x => x.BranchName).Returns("BranchName");
     }
@@ -25,7 +25,7 @@ internal class GitHistoryWalkingTestsContext : IDisposable
     private List<Commit> GetCommits(string gitLog)
     {
         var lines = gitLog.Split('\n');
-        return lines.Select(line => _logParser.Parse(line)).OfType<Commit>().ToList();
+        return lines.Select(line => _logParser.ParseGitLogLine(line)).OfType<Commit>().ToList();
     }
 
     public NUnitLogger Logger { get; }
